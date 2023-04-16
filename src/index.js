@@ -1,18 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Login from "./routes/login";
+import App from "./App";
+import Login from './routes/Login'
+import City from './routes/cities/City'
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <div>Hello World!</div>,
+    path: '/',
+    redirectTo: '/login',
+    element: <App />,
   },
   {
-    path: "/login",
+    path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/cities/:cityId',
+    element: <City />,
   },
 ]);
 
