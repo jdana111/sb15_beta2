@@ -3,10 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import Login from './routes/Login'
-import City from './routes/cities/City'
+import CreateCity from './routes/cities/Create'
+import UpdateCity from './routes/cities/Update'
+import SelectProgram from './routes/cities/SelectProgram'
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+// QQ: Natho, 
 const router = createBrowserRouter([
   {
     path: '/',
@@ -18,8 +21,16 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: '/cities/create',
+    element: <CreateCity />,
+  },
+  {
+    path: '/cities/:cityId/Update',
+    element: <UpdateCity />,
+  },
+  {
     path: '/cities/:cityId',
-    element: <City />,
+    element: <SelectProgram />,
   },
 ]);
 

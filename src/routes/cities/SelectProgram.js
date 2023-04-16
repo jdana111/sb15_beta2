@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-const City = () => (
+const SelectProgram = () => (
   <div>
-    <h1>City</h1>
+    <h1>SelectProgram</h1>
     <nav>
       <Link to="/">Program</Link>
     </nav>
   </div>
 );
 
-export default City;
+export default SelectProgram;
