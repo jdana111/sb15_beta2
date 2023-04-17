@@ -1,38 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import Login from './routes/Login'
-import CreateCity from './routes/cities/Create'
-import UpdateCity from './routes/cities/Update'
-import SelectProgram from './routes/cities/SelectProgram'
+import router from './routes'
 import reportWebVitals from "./reportWebVitals";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-// QQ: Natho, 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    redirectTo: '/login',
-    element: <App />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/cities/create',
-    element: <CreateCity />,
-  },
-  {
-    path: '/cities/:cityId/Update',
-    element: <UpdateCity />,
-  },
-  {
-    path: '/cities/:cityId',
-    element: <SelectProgram />,
-  },
-]);
+import { RouterProvider } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
