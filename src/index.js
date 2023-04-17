@@ -4,11 +4,20 @@ import "./index.css";
 import router from './routes'
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
+import { ApiClient, ApiProvider } from 'jsonapi-react'
+import schema from './schema'
+ 
+const client = new ApiClient({
+  apiUrl: 'https://api.example.com',
+  schema
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ApiProvider client={client}>
+      <RouterProvider router={router} />
+    </ApiProvider>
   </React.StrictMode>
 );
 
