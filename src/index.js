@@ -12,7 +12,7 @@ import schema from './schema'
 // QQ I changed the apiUrl. I also toggled React.js to "serve" port 3001 rather than 3000 using an .env file.
 // QQ Presumably, I'll need to add some dynamic functionality to tweak the apiUrl based on the environment (dev, staging, prod). 
 const client = new ApiClient({
-  apiUrl: 'http://127.0.0.1:3000',
+  url: 'http://127.0.0.1:3000/api',
   schema
 });
 
