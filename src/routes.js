@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     element: <CityForm />,
   },
   {
-    path: '/cities/:cityId',
+    path: '/cities/:cityId/select-program',
     element: <SelectProgram />,
   },
   {
