@@ -5,7 +5,7 @@ import router from './routes'
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
 import { ApiClient, ApiProvider } from 'jsonapi-react'
-import schema from './schema'
+// import schema from './schema'
  
 // QQ Take a look at my configuration for react-router-dom and jsonapi-react. I think I got it. 
 // QQ I dropped the router in a separate route.js file to clean up index.js. 
@@ -13,7 +13,7 @@ import schema from './schema'
 // QQ Presumably, I'll need to add some dynamic functionality to tweak the apiUrl based on the environment (dev, staging, prod). 
 const client = new ApiClient({
   url: 'http://127.0.0.1:3000/api',
-  schema
+  schema: {}
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

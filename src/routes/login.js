@@ -1,5 +1,8 @@
 import { useQuery } from "jsonapi-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { getCities } from "../apiClient";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,12 +12,18 @@ const Login = () => {
     navigate('/cities/1/select-program', {replace: true});
   }
 
-  const { data, meta, error, isLoading, isFetching } = useQuery('cities')
-  console.log(data)
+  const [cities, setCities] = useState([])
+  useEffect(() => {
+    getCities().then(cities => {
+      setCities(cities)
+    })
+  }, [])
+
+
   return (
     <div>
       <h1>Login</h1>
-      <h1>{data ? data[0]["city-name"] : ""}</h1>
+      {/* <h1>{cities ? cities[0]["cityName"] : ""}</h1> */}
       <div>
         <label>User</label>
         <input></input>
