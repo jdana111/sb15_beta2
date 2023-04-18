@@ -1,8 +1,7 @@
-import { useQuery } from "jsonapi-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getCities } from "../apiClient";
+import { createCity, getCities, updateCity, getCityPrograms } from "../apiClient";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,8 +16,27 @@ const Login = () => {
     getCities().then(cities => {
       setCities(cities)
     })
+    getCityPrograms(1).then((p) => {
+      console.log("cp", p)
+    })
   }, [])
 
+  const handleCreate = () => {
+    createCity({
+      "cityName": 'jazzercise',
+      "state": 'CO',
+      logoMain: 'asdf',
+      createdBy: 'me',
+      updatedBy: 'me'
+    })
+  }
+
+  const handleUpdate = () => {
+    updateCity(1, {
+      "id": 1,
+      "cityName": 'jazzercise'+new Date().getSeconds(),
+    })
+  }
 
   return (
     <div>
@@ -33,6 +51,8 @@ const Login = () => {
         <input></input>
       </div>
       <input type="button" value="Login" onClick={login} />
+      <input type="button" value="create" onClick={handleCreate} />
+      <input type="button" value="update" onClick={handleUpdate} />
     </div>
   );
 };
