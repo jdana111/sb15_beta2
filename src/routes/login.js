@@ -11,27 +11,9 @@ const Login = () => {
     navigate('/cities/1/select-program', {replace: true});
   }
 
-  const handleCreate = () => {
-    createCity({
-      "cityName": 'jazzercise',
-      "state": 'CO',
-      logoMain: 'asdf',
-      createdBy: 'me',
-      updatedBy: 'me'
-    })
-  }
-
-  const handleUpdate = () => {
-    updateCity(1, {
-      "id": 1,
-      "cityName": 'jazzercise'+new Date().getSeconds(),
-    })
-  }
-
   return (
     <div>
       <h1>Login</h1>
-      {/* <h1>{cities ? cities[0]["cityName"] : ""}</h1> */}
       <div>
         <label>User</label>
         <input></input>
@@ -41,8 +23,6 @@ const Login = () => {
         <input></input>
       </div>
       <input type="button" value="Login" onClick={login} />
-      <input type="button" value="create" onClick={handleCreate} />
-      <input type="button" value="update" onClick={handleUpdate} />
     </div>
   );
 };
