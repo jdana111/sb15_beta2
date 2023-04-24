@@ -6,6 +6,17 @@ const citySerializer = new Serializer("cities", {
   attributes: ["cityName", "state", "logoMain"],
 });
 
+const getCity = async (cityId) => {
+  try {
+    const response = await instance.get(`/cities/${cityId}`);
+    const cities = await deserializer.deserialize(response.data);
+    return cities;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Unable to fetch cities.");
+  }
+};
+
 const getCities = async () => {
   try {
     const response = await instance.get("/cities/");
@@ -50,4 +61,4 @@ const updateCity = async (cityId, data) => {
   }
 };
 
-export { getCities, getCityPrograms, createCity, updateCity };
+export { getCity, getCities, getCityPrograms, createCity, updateCity };
