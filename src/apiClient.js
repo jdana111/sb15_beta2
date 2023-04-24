@@ -12,32 +12,27 @@ const instance = axios.create({
   }
 });
 
+const deserializer = new Deserializer({ keyForAttribute: 'camelCase' });
+
 const getCities = async () => {
-  const response = await instance.get("/cities")
-  if (!response.data || !response.data) {
-    return null
+  try {
+    const response = await instance.get("/cities/");
+    const cities = await deserializer.deserialize(response.data);
+    return cities;
+  } catch (error) {
+    throw new Error("Unable to fetch cities.");
   }
-  let r
-  // console.log(response.data)
-  new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(response.data, function(err, cities) {
-    // console.log(cities)
-    r = cities
-  })
-  return r
-}
+};
 
 const getCityPrograms = async (cityId) => {
-  const response = await instance.get("/cities/"+cityId+"/programs")
-  console.log(response)
-  if (!response.data) {
-    return null
+  try {
+    const response = await instance.get("/cities/" + cityId + "/programs");
+    const programs = await deserializer.deserialize(response.data);
+    return programs;
+  } catch (error) {
+    throw new Error(`Unable to fetch programs associated with ${cityId}.`);
   }
-  let r
-  await new Deserializer({ keyForAttribute: 'camelCase' }).deserialize(response.data, function(err, cities) {
-    r = cities
-  })
-  return r
-}
+};
 
 const createCity = async (data) => {
   const citySerializer = new Serializer("cities", {

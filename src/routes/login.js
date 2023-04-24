@@ -11,16 +11,6 @@ const Login = () => {
     navigate('/cities/1/select-program', {replace: true});
   }
 
-  const [cities, setCities] = useState([])
-  useEffect(() => {
-    getCities().then(cities => {
-      setCities(cities)
-    })
-    getCityPrograms(1).then((p) => {
-      console.log("cp", p)
-    })
-  }, [])
-
   const handleCreate = () => {
     createCity({
       "cityName": 'jazzercise',
