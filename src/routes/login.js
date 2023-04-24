@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createCity, getCities, updateCity, getCityPrograms } from "../apiClient";
+import { createCity, getCities, updateCity, getCityPrograms } from "../apiClient/cities";
 
 const Login = () => {
   const navigate = useNavigate();
