@@ -13,7 +13,7 @@ const getCity = async (cityId) => {
     return cities;
   } catch (error) {
     console.error(error);
-    throw new Error("Unable to fetch cities.");
+    throw new Error(`Unable to retrieve city.id = ${cityId}.`);
   }
 };
 
@@ -24,7 +24,7 @@ const getCities = async () => {
     return cities;
   } catch (error) {
     console.error(error);
-    throw new Error("Unable to fetch cities.");
+    throw new Error("Unable to retrieve cities.");
   }
 };
 
@@ -32,10 +32,13 @@ const getCityPrograms = async (cityId) => {
   try {
     const response = await instance.get("/cities/" + cityId + "/programs");
     const programs = await deserializer.deserialize(response.data);
+    if (!programs || programs.length === 0) {
+      throw new Error('Natho, the goal is to throw something meaningful to the user.');
+    }
     return programs;
   } catch (error) {
     console.error(error);
-    throw new Error(`Unable to fetch programs associated with ${cityId}.`);
+    throw new Error(`Unable to retrieve programs associated with city.id = ${cityId}.`);
   }
 };
 
@@ -57,7 +60,7 @@ const updateCity = async (cityId, data) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error("Unable to update city");
+    throw new Error(`Unable to update city.id = ${cityId}.`);
   }
 };
 
