@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getCity, createCity, updateCity } from "../../apiClient/cities";
+import { getCity, createCity, updateCity } from "apiClient/cities";
 import { useForm } from "react-hook-form";
 
 const handleCreate = () => {
