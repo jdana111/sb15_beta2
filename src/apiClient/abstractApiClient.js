@@ -1,31 +1,52 @@
 import { instance, deserializer } from "./configApiClient";
 import { EmptyResponseError } from "errors/customErrors";
-import { Serializer } from "jsonapi-serializer";
 
-export default async function abstractApiCall(method, url, object) {
+export default async function abstractApiCall(method, url) {
   try {
-    const response = await instance[method](url);
-    const deserializedResponse = await deserializer.deserialize(response.data);
+    const responsePayload = await instance[method](url);
+    const deserializedResponsePayload = await deserializer.deserialize(
+      responsePayload.data
+    );
     if (
-      !deserializedResponse ||
-      (typeof deserializedResponse === "object" &&
-        Object.keys(deserializedResponse).length === 0) ||
-      (Array.isArray(deserializedResponse) && deserializedResponse.length === 0)
+      !deserializedResponsePayload ||
+      (typeof deserializedResponsePayload === "object" &&
+        Object.keys(deserializedResponsePayload).length === 0) ||
+      (Array.isArray(deserializedResponsePayload) &&
+        deserializedResponsePayload.length === 0)
     ) {
-      throw new EmptyResponseError('empty');
+      throw new EmptyResponseError(
+        `The ${method.toUpperCase()} request for the following data, ${url}, produced an empty response.`
+      );
     }
-    return deserializedResponse;
+    return deserializedResponsePayload;
   } catch (error) {
+    // I think this as simplle as throw error; I don't think we need a conditional. 
+    // Whether the error is generated automatically or is the result of our throw new EmptyResponseError, it should work. 
+    // Talk to Natho. Is there a way to get the error to the browser without "error bubbling"?
     if (error instanceof EmptyResponseError) {
-      console.log('EmptyResponseError works')
+      throw error;
     } else {
-      throw new Error('general'); 
+      throw new Error("general");
     }
   }
 }
 
-// The 12 - 14 block gets tricky in that you could get an empty object or array.
+// You still need to do createCity and updateCity.
+// Since the citySerializer needs all the city fields, it will need to lead in the implementation file and not this file.
+// You'll need a new parameter, serializedRequestPayload. createCity and updateCity will use it.
+// const createCity = async (data) => {
+//   try {
+//     const serializedData = await citySerializer.serialize(data);
+//     const response = await instance.post("cities", serializedData);
+//     return response.data;
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error("Unable to create city");
+//   }
+// };
+
 // Create a possible enumeration task: Once we toggle over to TypeScript, I could create enumerations for:
-// a) method
-// b) object (city, program, property, contact...)
+// a) method - I really don't like
 // Take a look at the ChatGPT thread. throw error; should do the trick in the catch block!
+// You're going to need 45 - 60 minutes to push the error handling stuff from ChatGPT to Yellow Lesson. (There's too much good stuff there to ignore it.)
+// You need to implement DELETE as well.
