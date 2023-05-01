@@ -1,4 +1,4 @@
-import { instance, deserializer } from "./config";
+import { instance, deserializer } from "./configApiClient";
 import { EmptyResponseError } from "errors/customErrors";
 import { Serializer } from "jsonapi-serializer";
 
