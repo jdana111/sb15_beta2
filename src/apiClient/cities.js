@@ -1,6 +1,7 @@
-
-import { instance, deserializer } from './config'
+import { instance, deserializer } from "./config";
 import { Serializer } from "jsonapi-serializer";
+import abstractApiCall from "./abstractApiClient";
+import { EmptyResponseError } from "errors/customErrors";
 
 const citySerializer = new Serializer("cities", {
   attributes: ["cityName", "state", "logoMain"],
@@ -17,30 +18,25 @@ const getCity = async (cityId) => {
   }
 };
 
+// const getCities = async () => {
+//   try {
+//     const response = await instance.get("/cities/");
+//     const cities = await deserializer.deserialize(response.data);
+//     return cities;
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error("Unable to retrieve cities.");
+//   }
+// };
+
 const getCities = async () => {
-  try {
-    const response = await instance.get("/cities/");
-    const cities = await deserializer.deserialize(response.data);
-    return cities;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Unable to retrieve cities.");
-  }
+  return abstractApiCall('get', '/cities', 'city');
 };
 
 const getCityPrograms = async (cityId) => {
-  try {
-    const response = await instance.get("/cities/" + cityId + "/programs");
-    const programs = await deserializer.deserialize(response.data);
-    if (!programs || programs.length === 0) {
-      throw new Error('Natho, the goal is to throw something meaningful to the user.');
-    }
-    return programs;
-  } catch (error) {
-    console.error(error);
-    throw new Error(`Unable to retrieve programs associated with city.id = ${cityId}.`);
-  }
+  return abstractApiCall('get', `/cities/${cityId}/programs`, 'city');
 };
+
 
 const createCity = async (data) => {
   try {
