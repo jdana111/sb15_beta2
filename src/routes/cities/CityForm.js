@@ -3,16 +3,6 @@ import { useEffect, useState } from "react";
 import { getCity, createCity, updateCity } from "../../apiClient/cities";
 import { useForm } from "react-hook-form";
 
-const handleCreate = () => {
-  createCity({
-    cityName: "jazzercise",
-    state: "CO",
-    logoMain: "asdf",
-    createdBy: "me",
-    updatedBy: "me",
-  });
-};
-
 const submitForm = (data) => {
   if (data.id) {
     updateCity(1, data);
@@ -38,7 +28,7 @@ const initCityFormData = async (cityId) => {
 };
 
 const CityForm = () => {
-  const [city, setCity] = useState([]);
+  // const [city, setCity] = useState([]);
   const { cityId } = useParams();
   const { register, handleSubmit } = useForm({
     defaultValues: () => initCityFormData(cityId),
