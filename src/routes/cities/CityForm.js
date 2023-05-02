@@ -31,7 +31,7 @@ const submitForm = (data) => {
 const initCityFormData = async (cityId) => {
   if (cityId) {
     console.log(cityId);
-    return getCity(cityId);
+    return await getCity(cityId);
   } else {
     return {};
   }

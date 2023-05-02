@@ -20,16 +20,15 @@ export default async function abstractApiCall(method, url) {
     }
     return deserializedResponsePayload;
   } catch (error) {
+    console.log('catch')
+    throw error;
+  }
+}
+
     // I think this as simplle as throw error; I don't think we need a conditional. 
     // Whether the error is generated automatically or is the result of our throw new EmptyResponseError, it should work. 
     // Talk to Natho. Is there a way to get the error to the browser without "error bubbling"?
-    if (error instanceof EmptyResponseError) {
-      throw error;
-    } else {
-      throw new Error("general");
-    }
-  }
-}
+
 
 // You still need to do createCity and updateCity.
 // Since the citySerializer needs all the city fields, it will need to lead in the implementation file and not this file.

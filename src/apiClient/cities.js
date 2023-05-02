@@ -1,7 +1,6 @@
 import { instance } from "./configApiClient";
 import { Serializer } from "jsonapi-serializer";
 import abstractApiCall from "./abstractApiClient";
-import { EmptyResponseError } from "errors/customErrors";
 
 const citySerializer = new Serializer("cities", {
   attributes: ["cityName", "state", "logoMain"],
@@ -12,13 +11,16 @@ const getCity = async (cityId) => {
 };
 
 const getCities = async () => {
-  return abstractApiCall('get', '/cities');
+  return await abstractApiCall('get', '/cities');
 };
 
 const getCityPrograms = async (cityId) => {
-  return abstractApiCall('get', `/cities/${cityId}/programs`);
+  try {
+    return await abstractApiCall('get', `/cities/${cityId}/programs`);
+  } catch {
+    console.log('imp catch')
+  }
 };
-
 
 const createCity = async (data) => {
   try {
